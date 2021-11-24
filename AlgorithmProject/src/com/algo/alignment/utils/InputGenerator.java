@@ -14,14 +14,14 @@ public class InputGenerator {
 
     private String generateSequence(String s, List<Integer> indices) {
         for (Integer index : indices) {
-            StringBuilder dummy = new StringBuilder();
+            StringBuilder stringBuilder = new StringBuilder();
             for (int j = 0; j < s.length(); j++) {
-                dummy.append(s.charAt(j));
+                stringBuilder.append(s.charAt(j));
                 if (j == index) {
-                    dummy.append(s);
+                    stringBuilder.append(s);
                 }
             }
-            s = dummy.toString();
+            s = stringBuilder.toString();
         }
         return s;
     }
