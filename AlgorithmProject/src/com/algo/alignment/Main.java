@@ -1,5 +1,7 @@
 package com.algo.alignment;
 
+//TODO: to be removed 
+//golden source of truth
 public class Main {
 
     public static int cost(String s1, String s2) {
