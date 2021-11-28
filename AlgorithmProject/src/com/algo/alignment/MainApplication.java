@@ -1,5 +1,6 @@
 package com.algo.alignment;
 
+import com.algo.alignment.core.SequenceAlignmentBasicAlgorithm;
 import com.algo.alignment.pojo.Input;
 import com.algo.alignment.utils.FileHandler;
 import com.algo.alignment.utils.InputGenerator;
@@ -18,7 +19,9 @@ public class MainApplication {
         String[] inputSequences = inputGenerator.getInputSequence(input.firstBase, input.secondBase, input.firstIndices, input.secondIndices);
 
         //Calling Sequence Alignment Basic Algorithm
-
+        SequenceAlignmentBasicAlgorithm sequenceAlignmentBasicAlgorithm= new SequenceAlignmentBasicAlgorithm(30);
+        int minimumCost=sequenceAlignmentBasicAlgorithm.alignSequences(inputSequences[0], inputSequences[1]);
+        //TODO: Append minimum cost , sequences, etc to an output file
 
     }
 }

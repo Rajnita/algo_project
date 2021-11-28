@@ -1,5 +1,6 @@
 package com.algo.alignment.pojo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Input {
@@ -9,5 +10,7 @@ public class Input {
     public List<Integer> secondIndices;
 
     public Input() {
+        firstIndices = new ArrayList<>();
+        secondIndices = new ArrayList<>();
     }
 }
