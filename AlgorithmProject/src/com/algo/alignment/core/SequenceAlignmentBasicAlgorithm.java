@@ -1,5 +1,7 @@
 package com.algo.alignment.core;
 
+import com.algo.alignment.utils.UtilityFunctions;
+
 public class SequenceAlignmentBasicAlgorithm {
 
     private final int gapPenalty;
@@ -22,7 +24,7 @@ public class SequenceAlignmentBasicAlgorithm {
         }
         for (int j = 1; j <= secondSequence.length(); j++) {
             for (int i = 1; i <= firstSequence.length(); i++) {
-                int costWhenMatched = getMismatchPenalty(firstSequence.charAt(i - 1), secondSequence.charAt(j - 1)) + memoizationTable[i - 1][j - 1];
+                int costWhenMatched = UtilityFunctions.getMismatchPenalty(firstSequence.charAt(i - 1), secondSequence.charAt(j - 1)) + memoizationTable[i - 1][j - 1];
                 int costWithGapAtFirstSequence = this.gapPenalty + memoizationTable[i - 1][j];
                 int costWithGapAtSecondSequence = this.gapPenalty + memoizationTable[i][j - 1];
                 //TODO: use long for memoization table if higher bounds are expected
@@ -34,7 +36,7 @@ public class SequenceAlignmentBasicAlgorithm {
         //TODO: remove SYS OUTS later and printtable later before submitting
         System.out.println("The minimum cost penalty is " + memoizationTable[firstSequence.length()][secondSequence.length()]);
 
-        printTable(memoizationTable);
+        //printTable(memoizationTable);
         return memoizationTable[firstSequence.length()][secondSequence.length()];
     }
 
@@ -45,31 +47,6 @@ public class SequenceAlignmentBasicAlgorithm {
             }
             System.out.println();
         }
-    }
-
-    private int getMismatchPenalty(char m, char n) {
-        int alpha = 0;
-        if (m != n) {
-            if ((m == 'A' && n == 'C')
-                    || (m == 'C' && n == 'A'))
-                alpha = 110;
-            if ((m == 'A' && n == 'G')
-                    || (m == 'G' && n == 'A'))
-                alpha = 48;
-            if ((m == 'A' && n == 'T')
-                    || (m == 'T' && n == 'A'))
-                alpha = 94;
-            if ((m == 'C' && n == 'G')
-                    || (m == 'G' && n == 'C'))
-                alpha = 118;
-            if ((m == 'C' && n == 'T')
-                    || (m == 'T' && n == 'C'))
-                alpha = 48;
-            if ((m == 'G' && n == 'T')
-                    || (m == 'T' && n == 'G'))
-                alpha = 110;
-        }
-        return alpha;
     }
 
     public String[] getAlignment() {
