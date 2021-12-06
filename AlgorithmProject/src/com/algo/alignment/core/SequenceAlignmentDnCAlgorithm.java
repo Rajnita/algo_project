@@ -3,13 +3,13 @@ package com.algo.alignment.core;
 import com.algo.alignment.utils.UtilityFunctions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SequenceAlignmentDnCAlgorithm {
     SequenceAlignmentBasicAlgorithm sequenceAlignmentBasicAlgorithm= new SequenceAlignmentBasicAlgorithm(30);
     int globalCost = 0;
     public List<Integer> arrowPath = new ArrayList<>();
+
 
     public void getAlignment(String input1, String input2) {
         int m = input1.length();
@@ -18,13 +18,11 @@ public class SequenceAlignmentDnCAlgorithm {
         int bestQ = 0;
 
         if(m <= 2 || n <= 2) {
-            globalCost += sequenceAlignmentBasicAlgorithm.alignSequences(input1, input2);
+            globalCost += sequenceAlignmentBasicAlgorithm.alignSequences(input1, input2).minCost;
             System.out.println(globalCost);
         }
         else {
             int v1, v2;
-            best = Integer.MAX_VALUE;
-            bestQ = 0;
             for(int q = 1; q < n; q++) {
                 v1 = spaceEfficientAlignment(input1.substring(0, m/2), input2.substring(0, q));
                 v2 = spaceEfficientAlignment(input1.substring(m/2), input2.substring(q));
