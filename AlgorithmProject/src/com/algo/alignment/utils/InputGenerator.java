@@ -4,7 +4,7 @@ import java.util.List;
 
 public class InputGenerator {
 
-    public String[] getInputSequence(String firstBaseString, String secondBaseString, List<Integer> firstBaseIndices, List<Integer> secondBaseIndices) {
+    public static String[] getInputSequence(String firstBaseString, String secondBaseString, List<Integer> firstBaseIndices, List<Integer> secondBaseIndices) {
         //TODO: Handle null if needed
         String[] result = new String[2];
         result[0] = generateSequence(firstBaseString, firstBaseIndices);
@@ -12,7 +12,7 @@ public class InputGenerator {
         return result;
     }
 
-    private String generateSequence(String s, List<Integer> indices) {
+    private static String generateSequence(String s, List<Integer> indices) {
         for (Integer index : indices) {
             StringBuilder stringBuilder = new StringBuilder();
             for (int j = 0; j < s.length(); j++) {

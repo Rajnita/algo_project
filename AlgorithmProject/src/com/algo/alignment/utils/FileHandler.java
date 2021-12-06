@@ -2,9 +2,7 @@ package com.algo.alignment.utils;
 
 import com.algo.alignment.pojo.Input;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class FileHandler {
 
@@ -36,7 +34,24 @@ public class FileHandler {
         return input;
     }
 
-    public void writeToOutputFile() {
+    public void writeToOutputFile(String firstSequence, String secondSequence, long cost, double time, double memory) throws IOException {
         //TODO
+        File fout = new File("output.txt");
+        FileOutputStream fos = new FileOutputStream(fout);
+
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+
+        bw.write(firstSequence);
+        bw.newLine();
+        bw.write(secondSequence);
+        bw.newLine();
+        bw.write(String.valueOf(cost));
+        bw.newLine();
+        bw.write(String.valueOf(time));
+        bw.newLine();
+        bw.write(String.valueOf(memory));
+        bw.newLine();
+
+        bw.close();
     }
 }
