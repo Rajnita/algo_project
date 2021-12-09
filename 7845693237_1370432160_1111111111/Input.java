@@ -1,5 +1,3 @@
-package com.algo.alignment.pojo;
-
 import java.util.ArrayList;
 import java.util.List;
 
