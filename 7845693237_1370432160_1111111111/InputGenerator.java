@@ -4,6 +4,7 @@ public class InputGenerator {
 
     public static String[] getInputSequence(String firstBaseString, String secondBaseString, List<Integer> firstBaseIndices, List<Integer> secondBaseIndices) {
         //TODO: Handle null if needed
+
         String[] result = new String[2];
         result[0] = generateSequence(firstBaseString, firstBaseIndices);
         result[1] = generateSequence(secondBaseString, secondBaseIndices);

@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-public class DncSequenceAlignmentMain {
+public class Efficient_7845693237_1370432160_1111111111 {
     public static void main(String[] args) throws IOException {
         String path = "/Users/rajnitaleichombam/Downloads/project_570/algo_project/AlgorithmProject/resources/input.txt";
 
