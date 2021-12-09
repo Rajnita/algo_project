@@ -1,7 +1,3 @@
-package com.algo.alignment.utils;
-
-import com.algo.alignment.pojo.Input;
-
 import java.io.*;
 
 public class FileHandler {

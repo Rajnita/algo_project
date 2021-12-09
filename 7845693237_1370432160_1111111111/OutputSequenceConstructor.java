@@ -1,7 +1,3 @@
-package com.algo.alignment.core;
-
-import com.algo.alignment.utils.UtilityFunctions;
-
 public class OutputSequenceConstructor {
 
     public String[] reconstructOutputFromMemoizationTable(long[][] memoizationTable, String firstSequence, String secondSequence, int gapPenality) {

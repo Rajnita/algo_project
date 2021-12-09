@@ -1,5 +1,3 @@
-package com.algo.alignment.utils;
-
 public class UtilityFunctions {
     public static int getMismatchPenalty(char m, char n) {
         int alpha = 0;

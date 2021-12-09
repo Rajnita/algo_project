@@ -1,11 +1,3 @@
-package com.algo.alignment;
-
-import com.algo.alignment.core.SequenceAlignmentBasicAlgorithm;
-import com.algo.alignment.pojo.Input;
-import com.algo.alignment.pojo.Output;
-import com.algo.alignment.utils.FileHandler;
-import com.algo.alignment.utils.InputGenerator;
-
 import java.io.IOException;
 
 public class MainApplication {

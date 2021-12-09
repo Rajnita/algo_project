@@ -1,5 +1,3 @@
-package com.algo.alignment.utils;
-
 import java.util.List;
 
 public class InputGenerator {

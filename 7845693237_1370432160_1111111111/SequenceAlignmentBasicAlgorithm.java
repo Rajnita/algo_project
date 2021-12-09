@@ -1,8 +1,3 @@
-package com.algo.alignment.core;
-
-import com.algo.alignment.pojo.Output;
-import com.algo.alignment.utils.UtilityFunctions;
-
 public class SequenceAlignmentBasicAlgorithm {
 
     private final int gapPenalty;
