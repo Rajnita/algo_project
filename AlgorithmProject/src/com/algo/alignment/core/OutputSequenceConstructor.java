@@ -42,14 +42,14 @@ public class OutputSequenceConstructor {
         sb2.reverse();
         String secondOutputSeq = sb2.toString();
         String[] outputSequences = new String[4];
-        if (firstSequence.length() >= 50) {
+        if (firstOutputSeq.length() >= 50) {
             outputSequences[0] = firstOutputSeq.substring(0, 49);
             outputSequences[1] = firstOutputSeq.substring(firstOutputSeq.length() - 51);
         } else {
             outputSequences[0] = firstOutputSeq;
             outputSequences[1] = firstOutputSeq;
         }
-        if (secondSequence.length() >= 50) {
+        if (secondOutputSeq.length() >= 50) {
             outputSequences[2] = secondOutputSeq.substring(0, 49);
             outputSequences[3] = secondOutputSeq.substring(secondOutputSeq.length() - 51);
         } else {
