@@ -22,17 +22,16 @@ public class SequenceAlignmentDnCAlgorithm {
 
         if (m <= 2 || n == 0) {
             dpTable = sequenceAlignmentBasicAlgorithm.alignSequencesMatrix(input1, input2);
-            //System.out.println(globalCost);
             alignment = sequenceAlignmentBasicAlgorithm.reconstructOutputFromMemoizationTable(dpTable, input1, input2, 30);
             return alignment;
         } else {
-            int[][] prefix = spaceEfficient(input1.substring(0, m / 2), input2);
-            int[][] suffix = spaceEfficient(input1.substring(m / 2), new StringBuffer(input2).reverse().toString());
+            int[][] prefix = spaceEfficient(input1.substring(0, m/2+1), input2);
+            int[][] suffix = spaceEfficient(new StringBuffer(input1.substring(m/2+1)).reverse().toString(), new StringBuffer(input2).reverse().toString());
             int minAlignCost = Integer.MAX_VALUE;
             int bestIndex = 0;
             int currAlignCost;
             for (int j = 1; j <= n; j++) {
-                currAlignCost = prefix[1][j] + suffix[1][j];
+                currAlignCost = prefix[1][j] + suffix[1][n-j];
                 if (currAlignCost < minAlignCost) {
                     minAlignCost = currAlignCost;
                     bestIndex = j;
@@ -46,9 +45,8 @@ public class SequenceAlignmentDnCAlgorithm {
             int gapCharCost = prefix[0][bestIndex];
 
             if (midCharCost == gapCharCost + 30) {
-                String[] prefixAlignment = getAlignment(new StringBuffer(input1.substring(0, m / 2)).reverse().toString(), input2.substring(0, split + 1));
-
-                String[] suffixAlignment = getAlignment(input1.substring(m / 2), input2.substring(split + 1));
+                String[] prefixAlignment = getAlignment(input1.substring(0, m/2), input2.substring(0, split + 1));
+                String[] suffixAlignment = getAlignment(input1.substring(m/2+1), input2.substring(split + 1));
                 StringBuffer sb = new StringBuffer();
                 sb.append(prefixAlignment[0]);
                 sb.append(midChar);
@@ -87,7 +85,6 @@ public class SequenceAlignmentDnCAlgorithm {
         int m = input1.length();
         int n = input2.length();
 
-        LinkedList<Integer> result = new LinkedList<>();
         int[][] dp = new int[2][n+1];
 
         for(int i = 0; i <= n; i++) {
@@ -101,8 +98,10 @@ public class SequenceAlignmentDnCAlgorithm {
                 dp[1][j] = Math.min(UtilityFunctions.getMismatchPenalty(input1.charAt(i-1), input2.charAt(j-1)) + dp[0][j-1], 30 + dp[1][j-1]);
                 dp[1][j] = Math.min(dp[1][j], 30 + dp[0][j]);
             }
-            for(int j = 0; j <= n; j++) {
-                dp[0][j] = dp[1][j];
+            if (i < input1.length()) {
+                for(int j = 0; j <= n; j++) {
+                    dp[0][j] = dp[1][j];
+                }
             }
         }
         return dp;
