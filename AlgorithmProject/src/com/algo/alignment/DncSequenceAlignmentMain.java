@@ -2,7 +2,6 @@ package com.algo.alignment;
 
 import com.algo.alignment.core.SequenceAlignmentBasicAlgorithm;
 import com.algo.alignment.core.SequenceAlignmentDnCAlgorithm;
-import com.algo.alignment.core.SequenceAlignmentDnCAlgorithm2;
 import com.algo.alignment.pojo.Input;
 import com.algo.alignment.utils.FileHandler;
 import com.algo.alignment.utils.InputGenerator;
