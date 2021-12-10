@@ -2,11 +2,13 @@ package com.algo.alignment;
 
 import com.algo.alignment.core.SequenceAlignmentBasicAlgorithm;
 import com.algo.alignment.core.SequenceAlignmentDnCAlgorithm;
+import com.algo.alignment.core.SequenceAlignmentDnCAlgorithm2;
 import com.algo.alignment.pojo.Input;
 import com.algo.alignment.utils.FileHandler;
 import com.algo.alignment.utils.InputGenerator;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class DncSequenceAlignmentMain {
     public static void main(String[] args) throws IOException {
@@ -22,7 +24,8 @@ public class DncSequenceAlignmentMain {
         String[] inputSequences = inputGenerator.getInputSequence(input.firstBase, input.secondBase, input.firstIndices, input.secondIndices);
 
         SequenceAlignmentDnCAlgorithm sequenceAlignmentBasicAlgorithm= new SequenceAlignmentDnCAlgorithm();
-        sequenceAlignmentBasicAlgorithm.getAlignment(inputSequences[0], inputSequences[1]);
-        System.out.println(sequenceAlignmentBasicAlgorithm.arrowPath);
+        String[] alignment = sequenceAlignmentBasicAlgorithm.getAlignment(inputSequences[0], inputSequences[1]);
+        System.out.println(sequenceAlignmentBasicAlgorithm.minCost(alignment[0], alignment[1]));
+
     }
 }

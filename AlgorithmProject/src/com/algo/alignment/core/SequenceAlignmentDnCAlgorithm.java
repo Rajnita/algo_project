@@ -11,111 +11,113 @@ public class SequenceAlignmentDnCAlgorithm {
     SequenceAlignmentBasicAlgorithm sequenceAlignmentBasicAlgorithm= new SequenceAlignmentBasicAlgorithm(30);
     int globalCost = 0;
     public List<Integer> arrowPath = new ArrayList<>();
+    int[][]dpTable;
+    String[] alignment;
 
-
-    public int getAlignment(String input1, String input2) {
+    public String[] getAlignment(String input1, String input2) {
         int m = input1.length();
         int n = input2.length();
         int best = Integer.MAX_VALUE;
         int bestQ = 0;
 
-        if(m <= 2 || n <= 2) {
-            globalCost += sequenceAlignmentBasicAlgorithm.alignSequences(input1, input2);
+        if (m <= 2 || n == 0) {
+            dpTable = sequenceAlignmentBasicAlgorithm.alignSequencesMatrix(input1, input2);
             //System.out.println(globalCost);
-        }
-        else {
-            LinkedList<Integer> v1 = AllInput2PrefixCosts(input1.substring(0, m/2), input2);
-            System.out.println("v1 " + v1);
-            LinkedList<Integer> v2 = AllInput2SuffixCosts(input1.substring(m/2), input2);
-            //System.out.println("sum " + (v1+v2));
-            System.out.println("v2 " + v2);
-            //System.out.println("q " + q);
-            for(int q = 0; q < v1.size(); q++) {
-                if((v1.get(q) + v2.get(q)) < best) {
-                    bestQ = q+1;
-                    best = v1.get(q) + v2.get(q);
-                    System.out.println("sum " + best);
+            alignment = sequenceAlignmentBasicAlgorithm.reconstructOutputFromMemoizationTable(dpTable, input1, input2, 30);
+            return alignment;
+        } else {
+            int[][] prefix = spaceEfficient(input1.substring(0, m / 2), input2);
+            int[][] suffix = spaceEfficient(input1.substring(m / 2), new StringBuffer(input2).reverse().toString());
+            int minAlignCost = Integer.MAX_VALUE;
+            int bestIndex = 0;
+            int currAlignCost;
+            for (int j = 1; j <= n; j++) {
+                currAlignCost = prefix[1][j] + suffix[1][j];
+                if (currAlignCost < minAlignCost) {
+                    minAlignCost = currAlignCost;
+                    bestIndex = j;
                 }
             }
 
-            arrowPath.add(m/2);
-            arrowPath.add(bestQ);
+            int split = bestIndex - 1;
+            char midChar = input1.charAt(m / 2);
+            char matchChar = input2.charAt(split);
+            int midCharCost = prefix[1][bestIndex];
+            int gapCharCost = prefix[0][bestIndex];
 
-            //System.out.println("q: " + bestQ);
-            getAlignment(input1.substring(0, m/2), input2.substring(0, bestQ));
-            getAlignment(input1.substring(m/2), input2.substring(bestQ));
+            if (midCharCost == gapCharCost + 30) {
+                String[] prefixAlignment = getAlignment(new StringBuffer(input1.substring(0, m / 2)).reverse().toString(), input2.substring(0, split + 1));
+
+                String[] suffixAlignment = getAlignment(input1.substring(m / 2), input2.substring(split + 1));
+                StringBuffer sb = new StringBuffer();
+                sb.append(prefixAlignment[0]);
+                sb.append(midChar);
+                sb.append(suffixAlignment[0]);
+                String res1 = sb.toString();
+
+                sb = new StringBuffer();
+                sb.append(prefixAlignment[1]);
+                sb.append('_');
+                sb.append(suffixAlignment[1]);
+                String res2 = sb.toString();
+
+                return new String[]{res1, res2};
+            } else {
+                String[] prefixAlignment = getAlignment(new StringBuffer(input1.substring(0, m / 2)).reverse().toString(), input2.substring(0, split));
+
+                String[] suffixAlignment = getAlignment(input1.substring(m / 2), input2.substring(split + 1));
+                StringBuffer sb = new StringBuffer();
+                sb.append(prefixAlignment[0]);
+                sb.append(midChar);
+                sb.append(suffixAlignment[0]);
+                String res1 = sb.toString();
+
+                sb = new StringBuffer();
+                sb.append(prefixAlignment[1]);
+                sb.append(matchChar);
+                sb.append(suffixAlignment[1]);
+                String res2 = sb.toString();
+
+                return new String[]{res1, res2};
+            }
         }
-        return globalCost;
     }
 
-    private LinkedList<Integer> AllInput2SuffixCosts(String input1, String input2) {
-        input1 = new StringBuffer(input1).reverse().toString();
+    public int[][] spaceEfficient(String input1, String input2) {
         int m = input1.length();
         int n = input2.length();
 
         LinkedList<Integer> result = new LinkedList<>();
-        int[][] dp = new int[m+1][2];
+        int[][] dp = new int[2][n+1];
 
-        for(int i = 0; i <= m; i++) {
-            dp[i][0] = i * 30;
+        for(int i = 0; i <= n; i++) {
+            dp[0][i] = i * 30;
         }
 
-        for(int j = 1; j <= n; j++) {
-            dp[0][1] = j * 30;
+        for(int i = 1; i <= m; i++) {
+            dp[1][0] = i * 30;
 
-            for(int i = 1; i <= m; i++) {
-                dp[i][1] = Math.min(UtilityFunctions.getMismatchPenalty(input1.charAt(i-1), input2.charAt(j-1)) + dp[i-1][0], 30 + dp[i-1][1]);
-                dp[i][1] = Math.min(dp[i][1], 30 + dp[i][0]);
-                //System.out.print(dp[i][1] + " ");
+            for(int j = 1; j <= n; j++) {
+                dp[1][j] = Math.min(UtilityFunctions.getMismatchPenalty(input1.charAt(i-1), input2.charAt(j-1)) + dp[0][j-1], 30 + dp[1][j-1]);
+                dp[1][j] = Math.min(dp[1][j], 30 + dp[0][j]);
             }
-            //System.out.println();
-            System.out.print(Arrays.toString(dp[m]));
-            for(int i = 0; i <= m; i++) {
-                dp[i][0] = dp[i][1];
+            for(int j = 0; j <= n; j++) {
+                dp[0][j] = dp[1][j];
             }
-
-            //result.addLast(dp[m][1]);
-            //System.out.print(dp[m][1] + " ");
-
         }
-//        for(int i = 0; i <= m; i++) {
-//            result.addFirst(dp[i][1]);
-//            //System.out.print(dp[i][1] + " ");
-//        }
-        return result;
+        return dp;
     }
 
-    public LinkedList<Integer> AllInput2PrefixCosts(String input1, String input2) {
-        int m = input1.length();
-        int n = input2.length();
-
-        LinkedList<Integer> result = new LinkedList<>();
-        int[][] dp = new int[m+1][2];
-
-        for(int i = 0; i <= m; i++) {
-            dp[i][0] = i * 30;
-        }
-
-        for(int j = 1; j <= n; j++) {
-            dp[0][1] = j * 30;
-
-            for(int i = 1; i <= m; i++) {
-                dp[i][1] = Math.min(UtilityFunctions.getMismatchPenalty(input1.charAt(i-1), input2.charAt(j-1)) + dp[i-1][0], 30 + dp[i-1][1]);
-                dp[i][1] = Math.min(dp[i][1], 30 + dp[i][0]);
-                System.out.print(dp[i][1] + " ");
+    public int minCost(String str1, String str2) {
+        int cost = 0;
+        for(int i = 0; i < str1.length(); i++) {
+            if(str1.charAt(i) == '_' || str2.charAt(i) == '_') {
+                cost += 30;
             }
-            System.out.println();
-            for(int i = 0; i <= m; i++) {
-                dp[i][0] = dp[i][1];
+            else {
+                cost += UtilityFunctions.getMismatchPenalty(str1.charAt(i), str2.charAt(i));
             }
-            result.addLast(dp[m][1]);
-            //System.out.print(dp[m][1] + " ");
-
         }
-//        for(int i = 0; i <= m; i++) {
-//            result.addFirst(dp[i][1]);
-//            //System.out.print(dp[i][1] + " ");
-//        }
-        return result;
+        return cost;
     }
 }
