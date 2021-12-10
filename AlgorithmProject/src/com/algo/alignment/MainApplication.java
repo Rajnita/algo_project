@@ -21,7 +21,7 @@ public class MainApplication {
 
         //Calling Sequence Alignment Basic Algorithm
         SequenceAlignmentBasicAlgorithm sequenceAlignmentBasicAlgorithm= new SequenceAlignmentBasicAlgorithm(30);
-        int minimumCost=sequenceAlignmentBasicAlgorithm.alignSequences(inputSequences[0], inputSequences[1]);
+        //int minimumCost=sequenceAlignmentBasicAlgorithm.alignSequences(inputSequences[0], inputSequences[1]);
         //TODO: Append minimum cost , sequences, etc to an output file
 
     }

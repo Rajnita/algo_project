@@ -11,6 +11,7 @@ import java.util.Arrays;
 
 public class DncSequenceAlignmentMain {
     public static void main(String[] args) throws IOException {
+        long startTime = System.currentTimeMillis();
         String path = "./AlgorithmProject/resources/input.txt";
 
         FileHandler fileHandler = new FileHandler();
@@ -22,9 +23,16 @@ public class DncSequenceAlignmentMain {
         InputGenerator inputGenerator = new InputGenerator();
         String[] inputSequences = inputGenerator.getInputSequence(input.firstBase, input.secondBase, input.firstIndices, input.secondIndices);
 
-        SequenceAlignmentDnCAlgorithm sequenceAlignmentBasicAlgorithm= new SequenceAlignmentDnCAlgorithm();
+        SequenceAlignmentDnCAlgorithm sequenceAlignmentBasicAlgorithm = new SequenceAlignmentDnCAlgorithm();
         String[] alignment = sequenceAlignmentBasicAlgorithm.getAlignment(inputSequences[0], inputSequences[1]);
-        System.out.println(sequenceAlignmentBasicAlgorithm.minCost(alignment[0], alignment[1]));
+        int cost = sequenceAlignmentBasicAlgorithm.minCost(alignment[0], alignment[1]);
+        long memoryInBytes = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        //convert to kilobytes
+        double memoryInKilobytes = (memoryInBytes / 1024.0);
 
+        long estimatedTimeInMilliSeconds = System.currentTimeMillis() - startTime;
+        double seconds = estimatedTimeInMilliSeconds / 1000.0;
+
+        fileHandler.writeToOutputFile(alignment[0], alignment[1], cost, seconds, memoryInKilobytes);
     }
 }
