@@ -7,7 +7,7 @@ public class SequenceAlignmentDnCAlgorithm {
     public List<Integer> arrowPath = new ArrayList<>();
 
 
-    public void getAlignment(String input1, String input2) {
+    public Output alignSequences(String input1, String input2) {
         int m = input1.length();
         int n = input2.length();
         int best = Integer.MAX_VALUE;
@@ -34,9 +34,11 @@ public class SequenceAlignmentDnCAlgorithm {
             arrowPath.add(bestQ);
 
             //System.out.println("q: " + bestQ);
-            getAlignment(input1.substring(0, m/2), input2.substring(0, bestQ));
-            getAlignment(input1.substring(m/2), input2.substring(bestQ));
+            alignSequences(input1.substring(0, m/2), input2.substring(0, bestQ));
+            alignSequences(input1.substring(m/2), input2.substring(bestQ));
         }
+        //TODO update output with result sequences and cost
+        return new Output();
     }
 
     public int spaceEfficientAlignment(String input1, String input2) {
