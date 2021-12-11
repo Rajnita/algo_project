@@ -37,22 +37,6 @@ public class OutputSequenceConstructor {
         StringBuilder sb2 = new StringBuilder(tempStr2.toString());
         sb2.reverse();
         String secondOutputSeq = sb2.toString();
-        String[] outputSequences = new String[4];
-        if (firstOutputSeq.length() >= 50) {
-            outputSequences[0] = firstOutputSeq.substring(0, 49);
-            outputSequences[1] = firstOutputSeq.substring(firstOutputSeq.length() - 51);
-        } else {
-            outputSequences[0] = firstOutputSeq;
-            outputSequences[1] = firstOutputSeq;
-        }
-        if (secondOutputSeq.length() >= 50) {
-            outputSequences[2] = secondOutputSeq.substring(0, 49);
-            outputSequences[3] = secondOutputSeq.substring(secondOutputSeq.length() - 51);
-        } else {
-            outputSequences[2] = secondOutputSeq;
-            outputSequences[3] = secondOutputSeq;
-        }
-
-        return outputSequences;
+        return new String[]{firstOutputSeq, secondOutputSeq};
     }
 }
