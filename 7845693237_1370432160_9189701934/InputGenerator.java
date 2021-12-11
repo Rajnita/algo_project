@@ -1,4 +1,3 @@
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class InputGenerator {
@@ -7,8 +6,6 @@ public class InputGenerator {
         String[] result = new String[2];
         result[0] = generateSequence(firstBaseString, firstBaseIndices);
         result[1] = generateSequence(secondBaseString, secondBaseIndices);
-        System.out.println("Problem size" + result[0].length() + result[1].length());
-        System.out.println("BytesA:" + result[0].getBytes(StandardCharsets.UTF_8).length + " BytesB" + result[1].getBytes(StandardCharsets.UTF_8).length);
         return result;
     }
 

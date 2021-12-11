@@ -38,13 +38,13 @@ public class SequenceAlignmentDnCAlgorithm {
             if (midCharCost == (gapCharCost + 30)) {
                 String[] prefixAlignment = getAlignment(input1.substring(0, m / 2), input2.substring(0, split + 1));
                 String[] suffixAlignment = getAlignment(input1.substring(m / 2 + 1), input2.substring(split + 1));
-                StringBuffer sb = new StringBuffer();
+                StringBuilder sb = new StringBuilder();
                 sb.append(prefixAlignment[0]);
                 sb.append(midChar);
                 sb.append(suffixAlignment[0]);
                 String res1 = sb.toString();
 
-                sb = new StringBuffer();
+                sb = new StringBuilder();
                 sb.append(prefixAlignment[1]);
                 sb.append('_');
                 sb.append(suffixAlignment[1]);
