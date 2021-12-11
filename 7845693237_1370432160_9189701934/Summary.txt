@@ -19,7 +19,7 @@ Task 5:  Basic Algorithm (Backtracking Logic to generate sequences from memoizat
 Task 6:  Efficient Algorithm Implementation(Finding min cost and generation of outputsequences) - Karishma Pherwani
 Task 7:  Preparation of Summary.txt - Rajnita Leichombam, Karishma Pherwani
 Task 8:  Report - Summary.txt Review - Karishma Pherwani, Vaishnav Sai Krishna Addagulla
-Task 9:  Code Review of the project - Karishma Pherwani, Vaishnav Sai Krishna Addagulla, Rajnita
+Task 9:  Code Review of the project - Karishma Pherwani, Vaishnav Sai Krishna Addagulla, Rajnita Leichombam
 Task 10: Test Plan and Cases preparation (listing test cases, edge cases, etc) - Vaishnav Sai Krishna Addagulla
 Task 11: Plotting of graphs using MS Excel - Vaishnav Sai Krishna Addagulla
 Task 12: Collection of data points for plotting - Rajnita Leichombam
@@ -30,7 +30,7 @@ Task 15: Reading and posting questions using Communication channels (Piazza) - V
 
 ###################################### INSIGHTS & OBSERVATIONS ##################################
 
-BASIC ALGORITHM (Sequence Alignment)
+************** BASIC ALGORITHM (Sequence Alignment)***************
 
 Recurrence relation used: 
 The minimum alignment costs satisfy the following recurrence for i ≥ 1 and j ≥ 1:
@@ -45,7 +45,8 @@ To reconstruct the solution, we trace back from the corner of the memoization ta
 Observation 1. The length of a shortest path that uses (i, j) is f (i, j) + g(i, j).
 Observation 2. let q be an index that minimizes f (q, n/2) + g(q, n/2). Then, there exists a shortest path from (0, 0) to (m, n) that uses (q, n/2).
 
-EFFICIENT ALGORITHM (Using Divide and Conquer)
+***************EFFICIENT ALGORITHM (Using Divide and Conquer)**************
+
 Idea: a divide-and-conquer algorithm to compute half alignments
 For the efficient algorithm we need O(N) for storing the computation arrays or the global list and O(N+M) to store the optimal alignment.
 
@@ -84,42 +85,23 @@ else
     return alignment
 
 
-COMPARISONS BETWEEN THE TWO ALGORITHMS
+**********COMPARISONS BETWEEN THE TWO ALGORITHMS*********
 
  In the basic algorithm, we can see that OPT(i,j) relies only on rows i,i-1 and columns j,j-1. We only need to track the current row and previous row in memory. This will allow us to obtain value of OPT(i,j), but not the path. 
- So Hirschberg devised an algorithm using divide and conquer and dynamic programming tto solve the issue.
+ So Hirschberg devised an algorithm using divide and conquer and dynamic programming to solve the issue.
+ For computation i.e. YPrefix and YSuffix as mentioned abovw, we have a 2-D array of n+1 rows and 2 cols, and to store the final optimal alignment, we require O(m+n) space. Time complexity of the efficient algo is O(mn) , similar to the basic algorithm.
+ 
+ 
+ 
+ #################################### ANALYSIS OF PLOTTED GRAPHS ####################################
+ 
+***************PROBLEM SIZE VS TIME ****************
 
- Building up the 2-D m-by-n array (memoization table) of optimal solutions to subproblems, clearly it is equivalent to constructing a graph Gxy with mn nodes laid out in a grid and looking for the cheapest path between opposite corners.
+We can see from the CPUPlot.png i.e. Problem size Vs Time, that for both algorithms, the time taken increases as the problem size increases. The time complexity for both basic and efficient algorithms is O(mn).
+As problem size grows beyond 1024 length, the efficient algorithm takes few more milliseconds. ( from the data collected , its approximately 20-30ms). This could be because of the various String operations done in efficient algorithm (finding substring, string concat)).
 
- Let f (i, j) to denote the length of the shortest path from (0, 0) to (i, j) in the graph Gxy . As we showed in the initial basic sequence alignment algorithm, f(i,j) has the same value as OPT(i, j).) Now let g(i, j) to be the length of the shortest path from (i, j) to (m, n) in Gxy.The answer we want is g(0,0),
- In the space efficient algorithm, we divide Gxy along its centre column and compute f(i,n/2) and g(i,n/2) for each i
-
-Comments on why the efficient and basic versions have different memory and time plots.
-
-Using (6.20) and our space-efficient algorithms to compute the value of the optimal alignment, we will proceed as follows. We divide GXY along its center column and compute the value of f (i, n/2) and g(i, n/2) for each value of i, using our two space-efficient algorithms. We can then determine the minimum value of f (i, n/2) + g(i, n/2), and conclude via (6.20) that there is a shortest corner-to-corner path passing through the node (i, n/2). Given this, we can search for the shortest path recursively in the portion of GXY between (0, 0) and (i, n/2) and in the portion between (i, n/2) and (m, n). The crucial point is that we apply these recursive calls sequentially and reuse the working space from one call to the next. Thus, since we only work on one recursive call at a time, the total space usage is O(m + n). The key question we have to resolve is whether the running time of this algorithm remains O(mn).
-
-Notice that σ(i, j) only relies on rows i and i − 1. So, as we run the algorithm we only need to keep the
-current row and the previous row in memory. This will allow us to obtain the value of σ(m, n), however, we
-have lost our information to be able to backtrack and return the path.
- Memory and Time:
- To put this in relatable terms, if we are comparing two 100,000 long strings, our DP
- array will be 10 GB large. This may be too large to fit in the main memory of some computers.
-
-
-
-
-
-
-
-Analysis of plotted graphs
-
-
-
-
-###################################### PROJECT FILES DESCRIPTION & OTHER IMPORTANT NOTES #######################
-
-
-
+***************PROBLEM SIZE VS MEMORY ***************
+When the problem size is small ie. below 462, it is clearly seen in MemoryPlot.png that, there is no much difference in the memory consumed. However, as the problem size increases (in our case, beyond problem size of 512), we can see that the memory used in case of basic algorithm is significantly higher than that of the efficient algorithm. There is a steep increase in memory used for basic algorithm as problem size increases.
 
 
 
