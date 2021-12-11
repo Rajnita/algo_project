@@ -92,13 +92,12 @@ else
  For computation i.e. YPrefix and YSuffix as mentioned abovw, we have a 2-D array of n+1 rows and 2 cols, and to store the final optimal alignment, we require O(m+n) space. Time complexity of the efficient algo is O(mn) , similar to the basic algorithm.
  
  
- 
  #################################### ANALYSIS OF PLOTTED GRAPHS ####################################
  
 ***************PROBLEM SIZE VS TIME ****************
 
 We can see from the CPUPlot.png i.e. Problem size Vs Time, that for both algorithms, the time taken increases as the problem size increases. The time complexity for both basic and efficient algorithms is O(mn).
-As problem size grows beyond 1024 length, the efficient algorithm takes few more milliseconds. ( from the data collected , its approximately 20-30ms). This could be because of the various String operations done in efficient algorithm (finding substring, string concat)).
+As problem size grows beyond length of 1024, the efficient algorithm takes few more milliseconds. ( from the data collected , its approximately 20-30ms). This could be because of the various String operations done in efficient algorithm (finding substring, string concat)).
 
 ***************PROBLEM SIZE VS MEMORY ***************
 When the problem size is small ie. below 462, it is clearly seen in MemoryPlot.png that, there is no much difference in the memory consumed. However, as the problem size increases (in our case, beyond problem size of 512), we can see that the memory used in case of basic algorithm is significantly higher than that of the efficient algorithm. There is a steep increase in memory used for basic algorithm as problem size increases.
